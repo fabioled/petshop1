@@ -1,4 +1,4 @@
-package com.fabio.petcshop;
+package com.fabio.petshop;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
