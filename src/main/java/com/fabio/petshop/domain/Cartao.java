@@ -1,9 +1,10 @@
 package com.fabio.petshop.domain;
 
-import java.util.Date;
+import javax.persistence.Entity;
 
 import com.fabio.petshop.domain.enums.SituacaoPagamento;
 
+@Entity
 public class Cartao extends Pagamento {
 	
 	private static final long serialVersionUID = 1L;
