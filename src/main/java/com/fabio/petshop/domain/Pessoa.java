@@ -18,6 +18,9 @@ import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
 public class Pessoa implements Serializable{
@@ -36,6 +39,7 @@ public class Pessoa implements Serializable{
 	@CollectionTable(name = "TELEFONE", joinColumns = @JoinColumn(name = "id_pessoa"))
 	private Set<String> telefones = new HashSet<>();
 	
+	@JsonManagedReference
 	@OneToMany(mappedBy = "pessoa")
 	private List<Endereco> enderecos = new ArrayList<>();
 	

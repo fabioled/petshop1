@@ -104,7 +104,7 @@ public class PopulaDados {
 		
 		Cidade c1 = new Cidade(null, "Belo Horizonte", est1);
 		Cidade c2 = new Cidade(null, "Capelinha", est1);
-		Cidade c3 = new Cidade(null, "Ribeirão Preto", est2);
+		Cidade c3 = new Cidade(null, "São Paulo", est2);
 				
 		est1.getCidades().addAll(Arrays.asList(c1,c2));
 		est2.getCidades().addAll(Arrays.asList(c3));
@@ -114,19 +114,20 @@ public class PopulaDados {
 		
 		
 		Cliente clt1 = new Cliente(null, "Jose Maria", "jose@mail.com", "335.194.320-21", "FISICA");
-		clt1.getTelefones().addAll(Arrays.asList("(3516-2000","9191-0000"));
+		clt1.getTelefones().addAll(Arrays.asList("3516-2000","9191-0000"));
 		
 		Funcionario fnc1 = new Funcionario(null, "Maria Jose", "maria@mail.com", "551.872.200-12", "ATENDENTE");
-		fnc1.getTelefones().addAll(Arrays.asList("(3279-0001","9090-0002"));
+		fnc1.getTelefones().addAll(Arrays.asList("3279-0001","9090-0002"));
 		
-		Endereco end1 = new Endereco(null, "Rua Tupis", "500", "Apto 101", "Pindorama", "30111222", clt1, c1);
+		Endereco end1 = new Endereco(null, "Rua Tupis", "500", "Apto 101", "Pindorama", "30110111", clt1, c1);
 		Endereco end2 = new Endereco(null, "Av. Tamoios", "100", "Casa", "Oca", "30100333", fnc1, c2);
+		Endereco end3 = new Endereco(null, "Rua Aranas", "10", "Apto 201", "Centro", "38100333", fnc1, c3);
 		
 		clt1.getEnderecos().addAll(Arrays.asList(end1));
-		fnc1.getEnderecos().addAll(Arrays.asList(end2));
+		fnc1.getEnderecos().addAll(Arrays.asList(end2,end3));
 		
 		pessoaRepository.saveAll(Arrays.asList(clt1, fnc1));		
-		enderecoRepository.saveAll(Arrays.asList(end1, end2));
+		enderecoRepository.saveAll(Arrays.asList(end1, end2, end3));
 		
 		
 	}
