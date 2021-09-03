@@ -7,6 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 public class PessoaCliente extends Pessoa {
@@ -15,7 +16,7 @@ public class PessoaCliente extends Pessoa {
 	
 	private String tipo;
 	
-	@JsonBackReference
+	@JsonIgnore
 	@OneToMany(mappedBy = "cliente")
 	private List<Servico> servicos = new ArrayList<>();
 	

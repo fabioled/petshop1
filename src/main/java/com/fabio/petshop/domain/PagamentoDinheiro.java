@@ -5,12 +5,15 @@ import java.util.Date;
 import javax.persistence.Entity;
 
 import com.fabio.petshop.domain.enums.SituacaoPagamento;
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 @Entity
 public class PagamentoDinheiro extends Pagamento {
 	
 	private static final long serialVersionUID = 1L;
 	private Double desconto;
+	
+	@JsonFormat(pattern = "dd/MM/yyyy")
 	private Date dataPagamento;
 	
 	public PagamentoDinheiro() {

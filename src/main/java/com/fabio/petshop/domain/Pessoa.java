@@ -38,7 +38,6 @@ public class Pessoa implements Serializable{
 	@CollectionTable(name = "TELEFONE", joinColumns = @JoinColumn(name = "id_pessoa"))
 	private Set<String> telefones = new HashSet<>();
 	
-	@JsonManagedReference
 	@OneToMany(mappedBy = "pessoa")
 	private List<Endereco> enderecos = new ArrayList<>();
 	

@@ -11,7 +11,7 @@ import javax.persistence.MapsId;
 import javax.persistence.OneToOne;
 
 import com.fabio.petshop.domain.enums.SituacaoPagamento;
-import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
@@ -24,7 +24,7 @@ public class Pagamento implements Serializable {
 	private Integer situacao;
 	private Double valor;
 	
-	@JsonBackReference
+	@JsonIgnore
 	@OneToOne
 	@JoinColumn(name = "id_servico")
 	@MapsId

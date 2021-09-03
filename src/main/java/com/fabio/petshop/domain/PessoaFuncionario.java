@@ -6,6 +6,8 @@ import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 public class PessoaFuncionario extends Pessoa {
 
@@ -13,6 +15,7 @@ public class PessoaFuncionario extends Pessoa {
 	
 	private String funcao;
 	
+	@JsonIgnore
 	@OneToMany(mappedBy = "funcionario")
 	private List<Servico> servicos = new ArrayList<>();
 	

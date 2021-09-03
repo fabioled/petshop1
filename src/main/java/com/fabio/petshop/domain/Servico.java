@@ -34,12 +34,10 @@ public class Servico implements Serializable {
 	@JsonFormat(pattern = "dd/MM/yyyy hh:mm")
 	private Date dataSaida;
 	private String descricao;
-	
-	@JsonManagedReference
+		
 	@OneToOne(cascade = CascadeType.ALL, mappedBy = "servico")
 	private Pagamento pagamento;
 	
-	@JsonManagedReference
 	@ManyToOne
 	@JoinColumn(name = "id_cliente")
 	private PessoaCliente cliente;
