@@ -160,6 +160,9 @@ public class PopulaDados {
 		srv3.setPagamento(pgt3);
 		
 		clt1.getServicos().addAll(Arrays.asList(srv1, srv2, srv3));
+		
+		srv2.getProdutos().addAll(Arrays.asList(p2, p4));
+		srv3.getProdutos().addAll(Arrays.asList(p3));
 				
 		servicoRepository.saveAll(Arrays.asList(srv1, srv2, srv3));
 		pagamentoRepository.saveAll(Arrays.asList(pgt1, pgt2, pgt3));		
