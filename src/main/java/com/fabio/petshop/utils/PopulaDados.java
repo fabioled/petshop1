@@ -2,6 +2,7 @@ package com.fabio.petshop.utils;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Arrays;
 
 import javax.annotation.PostConstruct;
@@ -111,8 +112,7 @@ public class PopulaDados {
 		especieResitory.saveAll(Arrays.asList(esp1, esp2));
 		racaRepository.saveAll(Arrays.asList(rac1, rac2, rac3));
 		
-		petRepository.saveAll(Arrays.asList(pet1, pet2, pet3));
-		
+		petRepository.saveAll(Arrays.asList(pet1, pet2, pet3));	
 		
 		Estado est1 = new Estado(null, "Minas Gerais");
 		Estado est2 = new Estado(null, "São Paulo");
@@ -146,8 +146,9 @@ public class PopulaDados {
 		
 		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm");
 		
-		Servico srv1 = new Servico(null, sdf.parse("02/09/2021 09:00"), sdf.parse("02/09/2021 12:00"), "Tosa", clt1, fnc1);
-		Servico srv2 = new Servico(null, sdf.parse("03/09/2021 12:00"), sdf.parse("04/09/2021 12:00"), "Hotel", clt1, fnc1);
+		Servico srv1 = new Servico(null, sdf.parse("02/09/2021 09:00"), sdf.parse("02/09/2021 12:00"), "Tosa", clt1, fnc1, pet1);
+		Servico srv2 = new Servico(null, sdf.parse("03/09/2021 12:00"), sdf.parse("04/09/2021 12:00"), "Hotel", clt1, fnc1, pet2);
+		Servico srv3 = new Servico(null, sdf.parse("05/09/2021 16:00"), sdf.parse("05/09/2021 16:30"), "Vermifugação", clt1, fnc1, pet3);
 		
 		Pagamento pgt1 = new PagamentoCartao(null, SituacaoPagamento.QUITADO, 60.00, srv1, 4);
 		srv1.setPagamento(pgt1);
@@ -155,11 +156,13 @@ public class PopulaDados {
 		Pagamento pgt2 = new PagamentoDinheiro(null, SituacaoPagamento.PENDENTE, 100.00, srv2, 10.0, sdf.parse("04/09/2021 12:00"));
 		srv2.setPagamento(pgt2);
 		
-		clt1.getPedidos().addAll(Arrays.asList(srv1, srv2));
+		Pagamento pgt3 = new PagamentoDinheiro(null, SituacaoPagamento.QUITADO, 75.00, srv3, 0.0, sdf.parse("05/09/2021 16:00"));
+		srv3.setPagamento(pgt3);
 		
-		servicoRepository.saveAll(Arrays.asList(srv1, srv2));
-		pagamentoRepository.saveAll(Arrays.asList(pgt1, pgt2));
-		
+		clt1.getServicos().addAll(Arrays.asList(srv1, srv2, srv3));
+				
+		servicoRepository.saveAll(Arrays.asList(srv1, srv2, srv3));
+		pagamentoRepository.saveAll(Arrays.asList(pgt1, pgt2, pgt3));		
 		
 	}
 

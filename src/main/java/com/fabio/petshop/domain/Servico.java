@@ -14,6 +14,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -39,8 +40,7 @@ public class Servico implements Serializable {
 	
 	@ManyToOne
 	@JoinColumn(name = "id_funcionario")
-	private PessoaFuncionario funcionario;	
-	
+	private PessoaFuncionario funcionario;
 	
 	@JsonIgnore
 	@ManyToMany
@@ -49,13 +49,16 @@ public class Servico implements Serializable {
 		inverseJoinColumns = @JoinColumn(name = "id_produto"))
 	private List<Produto> produtos = new ArrayList<>();
 	
+	@ManyToOne
+	@JoinColumn(name = "id_pet")
+	private Pet pet;
 
 	public Servico() {
 		
 	}	
 
 	public Servico(Integer id, Date dataEntrada, Date dataSaida, String descricao, PessoaCliente cliente,
-			PessoaFuncionario funcionario) {
+			PessoaFuncionario funcionario, Pet pet) {
 		super();
 		this.id = id;
 		this.dataEntrada = dataEntrada;
@@ -63,6 +66,8 @@ public class Servico implements Serializable {
 		this.descricao = descricao;		
 		this.setCliente(cliente);
 		this.setFuncionario(funcionario);
+		this.pet = pet;
+
 	}
 
 	public Integer getId() {
@@ -127,6 +132,14 @@ public class Servico implements Serializable {
 
 	public void setProdutos(List<Produto> produtos) {
 		this.produtos = produtos;
+	}
+	
+	public Pet getPet() {
+		return pet;
+	}
+
+	public void setPet(Pet pet) {
+		this.pet = pet;
 	}
 
 

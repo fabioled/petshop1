@@ -34,12 +34,12 @@ public class PessoaCliente extends Pessoa {
 		this.tipo = tipo;
 	}
 
-	public List<Servico> getPedidos() {
+	public List<Servico> getServicos() {
 		return servicos;
 	}
 
-	public void setPedidos(List<Servico> pedidos) {
-		this.servicos = pedidos;
+	public void setServicos(List<Servico> servicos) {
+		this.servicos = servicos;
 	}
 
 }
