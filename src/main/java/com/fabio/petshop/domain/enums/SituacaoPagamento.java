@@ -3,8 +3,8 @@ package com.fabio.petshop.domain.enums;
 public enum SituacaoPagamento {
 	
 	QUITADO(1, "Quitado"),
-	CANCELADO(2, "Pendente"),
-	PENDENTE(3, "Cancelado");
+	CANCELADO(2, "Cancelado"),
+	PENDENTE(3, "Pendente");
 	
 	private int cod;
 	private String descricao;
@@ -24,18 +24,18 @@ public enum SituacaoPagamento {
 		return descricao;
 	}
 
-	public static SituacaoPagamento toEnum(Integer cod) {
-		if (cod == null) {
+	public static SituacaoPagamento toEnum(Integer situacao) {
+		if (situacao == null) {
 			return null;
 		}
 
 		for (SituacaoPagamento x : SituacaoPagamento.values()) {
-			if (cod.equals(x.getCod())) {
+			if (situacao.equals(x.getCod())) {
 				return x;
 			}
 		}
 
-		throw new IllegalArgumentException("Id inválido: " + cod);
+		throw new IllegalArgumentException("Id inválido: " + situacao);
 	}
 	
 		

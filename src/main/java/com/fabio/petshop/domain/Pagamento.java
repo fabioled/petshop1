@@ -20,7 +20,7 @@ public class Pagamento implements Serializable {
 	
 	@Id
 	private Integer id;
-	private SituacaoPagamento situacao;
+	private Integer situacao;
 	private Double valor;
 	
 	@OneToOne
@@ -35,7 +35,7 @@ public class Pagamento implements Serializable {
 	public Pagamento(Integer id, SituacaoPagamento situacao, Double valor, Servico servico) {
 		super();
 		this.id = id;
-		this.situacao = situacao;
+		this.situacao = situacao.getCod();
 		this.valor = valor;
 		this.servico = servico;
 	}
@@ -50,11 +50,11 @@ public class Pagamento implements Serializable {
 	}
 
 	public SituacaoPagamento getSituacao() {
-		return situacao;
+		return SituacaoPagamento.toEnum(situacao);
 	}
 
 	public void setSituacao(SituacaoPagamento situacao) {
-		this.situacao = situacao;
+		this.situacao = situacao.getCod();
 	}
 
 	public Double getValor() {

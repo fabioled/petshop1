@@ -1,5 +1,7 @@
 package com.fabio.petshop.utils;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
 
 import javax.annotation.PostConstruct;
@@ -9,23 +11,30 @@ import org.springframework.stereotype.Component;
 
 import com.fabio.petshop.domain.Categoria;
 import com.fabio.petshop.domain.Cidade;
-import com.fabio.petshop.domain.Cliente;
 import com.fabio.petshop.domain.Endereco;
 import com.fabio.petshop.domain.Especie;
 import com.fabio.petshop.domain.Estado;
-import com.fabio.petshop.domain.Funcionario;
+import com.fabio.petshop.domain.Pagamento;
+import com.fabio.petshop.domain.PagamentoCartao;
+import com.fabio.petshop.domain.PagamentoDinheiro;
+import com.fabio.petshop.domain.PessoaCliente;
+import com.fabio.petshop.domain.PessoaFuncionario;
 import com.fabio.petshop.domain.Pet;
 import com.fabio.petshop.domain.Produto;
 import com.fabio.petshop.domain.Raca;
+import com.fabio.petshop.domain.Servico;
+import com.fabio.petshop.domain.enums.SituacaoPagamento;
 import com.fabio.petshop.repository.CategoriaRepository;
 import com.fabio.petshop.repository.CidadeRepository;
 import com.fabio.petshop.repository.EnderecoRepository;
 import com.fabio.petshop.repository.EspecieRepository;
 import com.fabio.petshop.repository.EstadoRepository;
+import com.fabio.petshop.repository.PagamentoRepository;
 import com.fabio.petshop.repository.PessoaRepository;
 import com.fabio.petshop.repository.PetRepository;
 import com.fabio.petshop.repository.ProdutoRepository;
 import com.fabio.petshop.repository.RacaRepository;
+import com.fabio.petshop.repository.ServicoRepository;
 
 @Component
 public class PopulaDados {
@@ -58,8 +67,14 @@ public class PopulaDados {
 	@Autowired
 	private EnderecoRepository enderecoRepository; 
 	
+	@Autowired
+	private ServicoRepository servicoRepository; 
+	
+	@Autowired
+	private PagamentoRepository pagamentoRepository; 
+	
 	@PostConstruct
-	public void cadastrar() {
+	public void cadastrar() throws ParseException {
 		
 		Categoria cat1 = new Categoria(null, "Alimento");
 		Categoria cat2 = new Categoria(null, "Remédio");	
@@ -113,10 +128,10 @@ public class PopulaDados {
 		cidadeRepository.saveAll(Arrays.asList(c1, c2, c3));
 		
 		
-		Cliente clt1 = new Cliente(null, "Jose Maria", "jose@mail.com", "335.194.320-21", "FISICA");
+		PessoaCliente clt1 = new PessoaCliente(null, "Jose Maria", "jose@mail.com", "335.194.320-21", "FISICA");
 		clt1.getTelefones().addAll(Arrays.asList("3516-2000","9191-0000"));
 		
-		Funcionario fnc1 = new Funcionario(null, "Maria Jose", "maria@mail.com", "551.872.200-12", "ATENDENTE");
+		PessoaFuncionario fnc1 = new PessoaFuncionario(null, "Maria Jose", "maria@mail.com", "551.872.200-12", "ATENDENTE");
 		fnc1.getTelefones().addAll(Arrays.asList("3279-0001","9090-0002"));
 		
 		Endereco end1 = new Endereco(null, "Rua Tupis", "500", "Apto 101", "Pindorama", "30110111", clt1, c1);
@@ -128,6 +143,22 @@ public class PopulaDados {
 		
 		pessoaRepository.saveAll(Arrays.asList(clt1, fnc1));		
 		enderecoRepository.saveAll(Arrays.asList(end1, end2, end3));
+		
+		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+		
+		Servico srv1 = new Servico(null, sdf.parse("02/09/2021 09:00"), sdf.parse("02/09/2021 12:00"), "Tosa", clt1, fnc1);
+		Servico srv2 = new Servico(null, sdf.parse("03/09/2021 12:00"), sdf.parse("04/09/2021 12:00"), "Hotel", clt1, fnc1);
+		
+		Pagamento pgt1 = new PagamentoCartao(null, SituacaoPagamento.QUITADO, 60.00, srv1, 4);
+		srv1.setPagamento(pgt1);
+		
+		Pagamento pgt2 = new PagamentoDinheiro(null, SituacaoPagamento.PENDENTE, 100.00, srv2, 10.0, sdf.parse("04/09/2021 12:00"));
+		srv2.setPagamento(pgt2);
+		
+		clt1.getPedidos().addAll(Arrays.asList(srv1, srv2));
+		
+		servicoRepository.saveAll(Arrays.asList(srv1, srv2));
+		pagamentoRepository.saveAll(Arrays.asList(pgt1, pgt2));
 		
 		
 	}

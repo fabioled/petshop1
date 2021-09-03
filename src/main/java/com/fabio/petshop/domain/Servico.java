@@ -1,14 +1,22 @@
 package com.fabio.petshop.domain;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 public class Servico implements Serializable {
@@ -25,17 +33,36 @@ public class Servico implements Serializable {
 	@OneToOne(cascade = CascadeType.ALL, mappedBy = "servico")
 	private Pagamento pagamento;
 	
+	@ManyToOne
+	@JoinColumn(name = "id_cliente")
+	private PessoaCliente cliente;
+	
+	@ManyToOne
+	@JoinColumn(name = "id_funcionario")
+	private PessoaFuncionario funcionario;	
+	
+	
+	@JsonIgnore
+	@ManyToMany
+	@JoinTable(name = "SERVICO_PRODUTO", 
+		joinColumns = @JoinColumn(name = "id_servico"),
+		inverseJoinColumns = @JoinColumn(name = "id_produto"))
+	private List<Produto> produtos = new ArrayList<>();
+	
+
 	public Servico() {
 		
-	}
+	}	
 
-	public Servico(Integer id, Date dataEntrada, Date dataSaida, String descricao, Pagamento pagamento) {
+	public Servico(Integer id, Date dataEntrada, Date dataSaida, String descricao, PessoaCliente cliente,
+			PessoaFuncionario funcionario) {
 		super();
 		this.id = id;
 		this.dataEntrada = dataEntrada;
 		this.dataSaida = dataSaida;
-		this.descricao = descricao;
-		this.pagamento = pagamento;
+		this.descricao = descricao;		
+		this.setCliente(cliente);
+		this.setFuncionario(funcionario);
 	}
 
 	public Integer getId() {
@@ -77,6 +104,31 @@ public class Servico implements Serializable {
 	public void setPagamento(Pagamento pagamento) {
 		this.pagamento = pagamento;
 	}
+	
+	public PessoaCliente getCliente() {
+		return cliente;
+	}
+
+	public void setCliente(PessoaCliente cliente) {
+		this.cliente = cliente;
+	}
+
+	public PessoaFuncionario getFuncionario() {
+		return funcionario;
+	}
+
+	public void setFuncionario(PessoaFuncionario funcionario) {
+		this.funcionario = funcionario;
+	}
+		
+	public List<Produto> getProdutos() {
+		return produtos;
+	}
+
+	public void setProdutos(List<Produto> produtos) {
+		this.produtos = produtos;
+	}
+
 
 	@Override
 	public int hashCode() {
@@ -101,6 +153,6 @@ public class Servico implements Serializable {
 		} else if (!id.equals(other.id))
 			return false;
 		return true;
-	}	
+	}
 		
 }

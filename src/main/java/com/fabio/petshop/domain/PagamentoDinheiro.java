@@ -7,17 +7,17 @@ import javax.persistence.Entity;
 import com.fabio.petshop.domain.enums.SituacaoPagamento;
 
 @Entity
-public class Dinheiro extends Pagamento {
+public class PagamentoDinheiro extends Pagamento {
 	
 	private static final long serialVersionUID = 1L;
 	private Double desconto;
 	private Date dataPagamento;
 	
-	public Dinheiro() {
+	public PagamentoDinheiro() {
 		
 	}
 
-	public Dinheiro(Integer id, SituacaoPagamento situacao, Double valor, Servico servico, Double desconto, Date dataPagamento) {
+	public PagamentoDinheiro(Integer id, SituacaoPagamento situacao, Double valor, Servico servico, Double desconto, Date dataPagamento) {
 		super(id, situacao, valor, servico);
 		this.desconto = desconto;
 		this.dataPagamento = dataPagamento;
