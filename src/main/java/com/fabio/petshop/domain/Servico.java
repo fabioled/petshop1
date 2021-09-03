@@ -14,10 +14,11 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 public class Servico implements Serializable {
@@ -27,28 +28,34 @@ public class Servico implements Serializable {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)	
 	private Integer id;
+	
+	@JsonFormat(pattern = "dd/MM/yyyy hh:mm")
 	private Date dataEntrada;
+	@JsonFormat(pattern = "dd/MM/yyyy hh:mm")
 	private Date dataSaida;
 	private String descricao;
 	
+	@JsonManagedReference
 	@OneToOne(cascade = CascadeType.ALL, mappedBy = "servico")
 	private Pagamento pagamento;
 	
+	@JsonManagedReference
 	@ManyToOne
 	@JoinColumn(name = "id_cliente")
 	private PessoaCliente cliente;
 	
+	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name = "id_funcionario")
 	private PessoaFuncionario funcionario;
 	
-	@JsonIgnore
 	@ManyToMany
 	@JoinTable(name = "SERVICO_PRODUTO", 
 		joinColumns = @JoinColumn(name = "id_servico"),
 		inverseJoinColumns = @JoinColumn(name = "id_produto"))
 	private List<Produto> produtos = new ArrayList<>();
 	
+	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name = "id_pet")
 	private Pet pet;

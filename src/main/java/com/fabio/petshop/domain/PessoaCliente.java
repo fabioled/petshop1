@@ -6,6 +6,8 @@ import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 @Entity
 public class PessoaCliente extends Pessoa {
 
@@ -13,6 +15,7 @@ public class PessoaCliente extends Pessoa {
 	
 	private String tipo;
 	
+	@JsonBackReference
 	@OneToMany(mappedBy = "cliente")
 	private List<Servico> servicos = new ArrayList<>();
 	
